@@ -37,7 +37,20 @@ function renderPawns() {
 
 function handleCellClick(x, y) {
   const currentPlayer = gameState.players[gameState.currentPlayerIndex];
-  // For now, no move validation—just set position
+  const dx = x - currentPlayer.position.x;
+  const dy = y - currentPlayer.position.y;
+
+  const isAdjacent =
+    (Math.abs(dx) === 1 && dy === 0) ||
+    (Math.abs(dy) === 1 && dx === 0);
+
+  if (!isAdjacent) {
+    console.log("Invalid move: must move to adjacent square.");
+    return;
+  }
+
+  // Later: check walls here.
+
   currentPlayer.position = { x, y };
 
   // Rotate to next player
